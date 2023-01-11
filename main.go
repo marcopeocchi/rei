@@ -1,42 +1,41 @@
 package main
 
 import (
+	"context"
 	"embed"
 	"flag"
-	"fmt"
 	"io/fs"
 	"log"
-	"net/http"
+	"valeera/m/pkg"
 )
+
+type ContextKey interface{}
 
 var (
 	//go:embed frontend/dist
 	vueFS      embed.FS
 	configPath string
-	config     SafeConfig
+	config     pkg.SafeConfig
 )
 
 func init() {
-	config = SafeConfig{cfg: Config{Port: 8686}}
+	config = pkg.SafeConfig{}
 	flag.StringVar(&configPath, "c", "./Valeerafile", "Path of Valeerafile")
 	flag.Parse()
 }
 
 func main() {
+	ctx := context.Background()
+
+	config.Load(configPath)
+
 	frontend, err := fs.Sub(vueFS, "frontend/dist")
 	if err != nil {
 		log.Fatalln(err)
 	}
 
-	config.Load(configPath)
+	ctx = context.WithValue(ctx, ContextKey("config"), &config)
+	ctx = context.WithValue(ctx, ContextKey("frontend"), frontend)
 
-	frontendFS := http.FileServer(http.FS(frontend))
-
-	mux := http.NewServeMux()
-	mux.Handle("/", frontendFS)
-	mux.HandleFunc("/config", handleConfig)
-	mux.HandleFunc("/temp", handleTemp)
-	mux.HandleFunc("/top", handleTop)
-
-	http.ListenAndServe(fmt.Sprintf(":%d", config.cfg.Port), CORS(mux))
+	pkg.RunBlocking(ctx)
 }

@@ -1,4 +1,4 @@
-package main
+package pkg
 
 type Config struct {
 	Port       int    `json:"port" yaml:"port"`
