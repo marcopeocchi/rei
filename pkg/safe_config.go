@@ -32,6 +32,7 @@ func (c *SafeConfig) Load(configPath string) {
 	yaml.Unmarshal(dat, &c.cfg)
 }
 
+// Returns JSON representation on Config as it is initially saved as YAML
 func (c *SafeConfig) Json() []byte {
 	bytes, err := json.Marshal(c.cfg)
 	if err != nil {

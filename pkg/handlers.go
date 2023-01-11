@@ -10,6 +10,7 @@ import (
 	"github.com/shirou/gopsutil/mem"
 )
 
+// HTTP handler function for retrieving "top-like" data of the system
 func handleTop(w http.ResponseWriter, r *http.Request) {
 	contentJson(&w)
 	cpu, _ := cpu.Info()
@@ -33,6 +34,7 @@ func handleTop(w http.ResponseWriter, r *http.Request) {
 	w.Write(res)
 }
 
+// HTTP handler function for retrieving cpu package temperature
 func handleTemp(w http.ResponseWriter, r *http.Request) {
 	contentJson(&w)
 	temp, _ := readCPUTempLINUX()
@@ -47,6 +49,7 @@ func handleTemp(w http.ResponseWriter, r *http.Request) {
 	w.Write(res)
 }
 
+// HTTP handler function for retrieving services
 func handleConfig(w http.ResponseWriter, r *http.Request) {
 	contentJson(&w)
 	w.Write(config.Json())
