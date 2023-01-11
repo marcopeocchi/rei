@@ -2,7 +2,7 @@ import { ref, computed } from 'vue'
 import { defineStore } from 'pinia'
 import { themes } from '../themes'
 
-export const useCounterStore = defineStore('theme', () => {
+export const useThemeStore = defineStore('theme', () => {
   const theme = ref(localStorage.getItem("theme") ?? "sakura")
   const themeName = computed(() => theme.value)
   const getTheme = computed(() => themes[theme.value] ?? themes.sakura)
