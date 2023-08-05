@@ -1,41 +1,35 @@
 package main
 
 import (
-	"context"
 	"embed"
 	"flag"
 	"io/fs"
 	"log"
-	"valeera/m/pkg"
+	"valeera/m/internal"
+	"valeera/m/internal/config"
 )
 
-type ContextKey interface{}
-
 var (
-	//go:embed frontend/dist
-	vueFS      embed.FS
+	//go:embed app/dist
+	app        embed.FS
 	configPath string
-	config     pkg.SafeConfig
 )
 
 func init() {
-	config = pkg.SafeConfig{}
 	flag.StringVar(&configPath, "c", "./Valeerafile", "Path of Valeerafile")
 	flag.Parse()
 }
 
 func main() {
-	ctx := context.Background()
+	c := config.New(configPath)
 
-	config.Load(configPath)
-
-	frontend, err := fs.Sub(vueFS, "frontend/dist")
+	app, err := fs.Sub(app, "app/dist")
 	if err != nil {
 		log.Fatalln(err)
 	}
 
-	ctx = context.WithValue(ctx, ContextKey("config"), &config)
-	ctx = context.WithValue(ctx, ContextKey("frontend"), frontend)
-
-	pkg.RunBlocking(ctx)
+	internal.RunBlocking(internal.ServerConfig{
+		Frontend: app,
+		Config:   c,
+	})
 }
