@@ -12,3 +12,9 @@
   </span>
   <span>{value}</span>
 </div>
+
+<style scoped>
+  div {
+    font-family: "JetBrains Mono", monospace;
+  }
+</style>
