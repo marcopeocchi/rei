@@ -7,7 +7,7 @@
 
   const top = get(topStore);
 
-  let interval;
+  let interval: number;
   let uptime = 0;
   let temperature = 0;
 
@@ -17,7 +17,7 @@
 
   topStore.subscribe((t) =>
     t.then((resolved) => {
-      uptime = Number(resolved.uptime);
+      uptime = resolved.uptime;
       interval = setInterval(() => uptime++, 1000);
     })
   );
