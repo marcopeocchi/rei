@@ -1,8 +1,8 @@
 <script lang="ts">
-  import type { Config } from "../types";
-  import Service from "./Service.svelte";
-  import Stats from "./Stats.svelte";
-  import Title from "./Title.svelte";
+  import type { Config } from '../types';
+  import Service from './Service.svelte';
+  import Stats from './Stats.svelte';
+  import Title from './Title.svelte';
 
   export let config: Config;
 </script>

@@ -1,9 +1,9 @@
 <script lang="ts">
-  import Home from "./lib/Home.svelte";
-  import type { Config } from "./types";
+  import Home from './lib/Home.svelte';
+  import type { Config } from './types';
 
   const fetcher = async () => {
-    const res = await fetch("/config");
+    const res = await fetch('/config');
     const data: Config = await res.json();
     return data;
   };

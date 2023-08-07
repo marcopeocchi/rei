@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { tabTo } from "./utils";
+  import { tabTo } from './utils';
 
   export let title: string;
   export let value: string;
@@ -15,6 +15,6 @@
 
 <style scoped>
   div {
-    font-family: "JetBrains Mono", monospace;
+    font-family: 'JetBrains Mono', monospace;
   }
 </style>

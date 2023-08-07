@@ -1,8 +1,7 @@
 export const tabTo = (name: string, spaces: number) =>
-  name.concat(new Array(spaces)
+  name.concat(...new Array(spaces)
     .fill(' ', 0, spaces)
     .concat('→ ')
-    .reduce((c, n) => `${c}${n}`)
   )
 
 export const formatHHMMSS = (d: number) => {
