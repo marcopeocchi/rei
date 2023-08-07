@@ -20,5 +20,5 @@ export type Top = {
 }
 
 export type Thermals = {
-  cpuTemp: string
+  cpuTemp: number
 }

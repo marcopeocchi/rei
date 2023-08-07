@@ -1,9 +1,9 @@
 <script lang="ts">
-  import { get } from "svelte/store";
-  import { temperatureStore, topStore } from "./store";
-  import Entry from "./Entry.svelte";
-  import { formatHHMMSS } from "./utils";
-  import { onDestroy } from "svelte";
+  import { onDestroy } from 'svelte';
+  import { get } from 'svelte/store';
+  import Entry from './Entry.svelte';
+  import { temperatureStore, topStore } from './store';
+  import { formatHHMMSS } from './utils';
 
   const top = get(topStore);
 
@@ -12,7 +12,7 @@
   let temperature = 0;
 
   temperatureStore.subscribe((thermals) =>
-    thermals.then((resolved) => (temperature = Number(resolved.cpuTemp)))
+    thermals.then((resolved) => (temperature = resolved.cpuTemp))
   );
 
   topStore.subscribe((t) =>
@@ -35,7 +35,7 @@
     <Entry title="CPU" value={`${data.coreCount} x ${data.cpu}`} tabs={6} />
     <Entry
       title="Free RAM"
-      value={`${(Number(data.ramFree) / 1_000_000).toFixed(0)}MB`}
+      value={`${(data.ramFree / 1_000_000).toFixed(0)}MB`}
       tabs={1}
     />
   {/await}
@@ -43,7 +43,7 @@
   <br />
   <Entry
     title="PKG Temperature"
-    value={`${(Number(temperature) / 1000).toFixed(2)}°C`}
+    value={`${(temperature / 1000).toFixed(2)}°C`}
     tabs={1}
   />
 </header>

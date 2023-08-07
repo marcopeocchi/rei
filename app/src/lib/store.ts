@@ -9,7 +9,7 @@ const fetchTop = async () => {
 
 const fetchThermals = async () => {
   const res = await fetch('/temp')
-  const data: Thermals = await res.json()
+  const data = await res.json()
   return {
     ...data,
     cpuTemp: data.cpuTemp.replace('/n', '')
