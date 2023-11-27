@@ -17,3 +17,7 @@ export const formatHHMMSS = (d: number) => {
     ? uptime.substring(-1)
     : uptime
 }
+
+export const getEndpoint = (path: string) => import.meta.env.DEV
+  ? `http://localhost:8686${path}`
+  : `${path}`

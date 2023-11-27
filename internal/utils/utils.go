@@ -8,19 +8,15 @@ import (
 
 // Reads the CPU package temperature from /sys/class/themrmal
 // Due to this, linux is the only supported platform.
-// If the first reading from x86_pkg_temp fails fallback to acpiz one.
-// If the system is not supported returns error.
-func ReadCPUTempLINUX() (string, error) {
-	if runtime.GOOS == "linux" {
-		thermal_zone2, err := os.ReadFile("/sys/class/thermal/thermal_zone2/temp")
-		if err != nil {
-			thermal_zone1, err := os.ReadFile("/sys/class/thermal/thermal_zone1/temp")
-			if err != nil {
-				return "", err
-			}
-			return string(thermal_zone1), nil
-		}
-		return string(thermal_zone2), nil
+func ReadCPUTemp() (string, error) {
+	if runtime.GOOS != "linux" {
+		return "", fmt.Errorf("system %s is not supported", runtime.GOOS)
 	}
-	return "", fmt.Errorf("system %s is not supported", runtime.GOOS)
+
+	thermal_zone0, err := os.ReadFile("/sys/class/thermal/thermal_zone0/temp")
+	if err != nil {
+		return "", err
+	}
+
+	return string(thermal_zone0), nil
 }

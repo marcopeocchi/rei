@@ -10,13 +10,18 @@ import (
 	"gopkg.in/yaml.v3"
 )
 
+type Service struct {
+	Name string `json:"name" yaml:"name"`
+	Url  string `json:"url" yaml:"url"`
+}
+
 type Config struct {
-	Port       int    `json:"port" yaml:"port"`
-	ServerName string `json:"servername" yaml:"servername"`
-	Services   []struct {
-		Name string `json:"name" yaml:"name"`
-		Url  string `json:"url" yaml:"url"`
-	} `json:"services" yaml:"services"`
+	Port           int       `json:"port" yaml:"port"`
+	ServerName     string    `json:"servername" yaml:"servername"`
+	Authentication bool      `json:"authentication" yaml:"authentication"`
+	Username       string    `json:"username" yaml:"username"`
+	Password       string    `json:"password" yaml:"password"`
+	Services       []Service `json:"services" yaml:"services"`
 }
 
 type SafeConfig struct {

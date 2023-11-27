@@ -5,8 +5,9 @@ import (
 	"flag"
 	"io/fs"
 	"log"
-	"valeera/m/internal"
-	"valeera/m/internal/config"
+
+	"github.com/marcopeocchi/valeera/internal"
+	"github.com/marcopeocchi/valeera/internal/config"
 )
 
 var (

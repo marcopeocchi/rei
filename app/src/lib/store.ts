@@ -1,14 +1,15 @@
 import { readable } from 'svelte/store'
 import type { Thermals, Top } from '../types'
+import { getEndpoint } from './utils'
 
 const fetchTop = async () => {
-  const res = await fetch('/top')
+  const res = await fetch(getEndpoint('/api/top'))
   const data: Top = await res.json()
   return data
 }
 
 const fetchThermals = async () => {
-  const res = await fetch('/temp')
+  const res = await fetch(getEndpoint('/api/temp'))
   const data = await res.json()
   return {
     ...data,

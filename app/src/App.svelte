@@ -1,9 +1,16 @@
 <script lang="ts">
   import Home from './lib/Home.svelte';
+  import Login from './lib/Login.svelte';
+  import { getEndpoint } from './lib/utils';
   import type { Config } from './types';
 
   const fetcher = async () => {
-    const res = await fetch('/config');
+    const res = await fetch(getEndpoint('/api/config'));
+
+    if (!res.ok) {
+      throw new Error(await res.text());
+    }
+
     const data: Config = await res.json();
     return data;
   };
@@ -16,5 +23,7 @@
     <p class="flex items-center justify-center">Loading ...</p>
   {:then data}
     <Home config={data} />
+  {:catch}
+    <Login />
   {/await}
 </main>

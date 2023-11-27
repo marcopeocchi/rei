@@ -7,7 +7,7 @@
 </script>
 
 <div>
-  <span class="font-bold whitespace-pre-wrap text-blue-400 dark:text-blue-100">
+  <span class="font-bold whitespace-pre-wrap text-red-400 dark:text-red-100">
     {tabTo(title, tabs)}
   </span>
   <span>{value}</span>

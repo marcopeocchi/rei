@@ -4,9 +4,22 @@ import (
 	"fmt"
 	"io/fs"
 	"net/http"
-	"valeera/m/internal/config"
-	"valeera/m/internal/rest"
+	"os"
+
+	"github.com/marcopeocchi/valeera/internal/config"
+	"github.com/marcopeocchi/valeera/internal/rest"
+
+	"github.com/go-chi/chi/v5"
+	"github.com/go-chi/chi/v5/middleware"
+	"github.com/redis/go-redis/v9"
 )
+
+var rdb = redis.NewClient(&redis.Options{
+	DB:       0,
+	Addr:     os.Getenv("REDIS_ADDR"),
+	Username: os.Getenv("REDIS_USER"),
+	Password: os.Getenv("REDIS_PASS"),
+})
 
 type ServerConfig struct {
 	Frontend fs.FS
@@ -14,14 +27,24 @@ type ServerConfig struct {
 }
 
 func RunBlocking(sc ServerConfig) {
-	frontendFS := http.FileServer(http.FS(sc.Frontend))
+	fe := http.FileServer(http.FS(sc.Frontend))
 
-	mux := http.NewServeMux()
+	r := chi.NewRouter()
 
-	mux.Handle("/", frontendFS)
-	mux.HandleFunc("/temp", rest.Temp)
-	mux.HandleFunc("/top", rest.Top)
-	mux.HandleFunc("/config", rest.Config(sc.Config))
+	r.Use(cors)
+	r.Use(middleware.Logger)
+	r.Mount("/", fe)
 
-	http.ListenAndServe(fmt.Sprintf(":%d", sc.Config.Cfg.Port), CORS(mux))
+	r.Route("/api", func(r chi.Router) {
+		if sc.Config.Cfg.Authentication {
+			r.Use(authenticated)
+		}
+		r.Get("/temp", rest.Temp)
+		r.Get("/top", rest.Top)
+		r.Get("/config", rest.Config(sc.Config))
+	})
+
+	r.Post("/login", rest.Login(sc.Config, rdb))
+
+	http.ListenAndServe(fmt.Sprintf(":%d", sc.Config.Cfg.Port), r)
 }
