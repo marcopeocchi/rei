@@ -1,11 +1,11 @@
 {{template "main" .}}
 {{define "content"}}
 <section class="select-none">
-  <h1 class="text-neutral-100/95 retro text-2xl font-semibold select-none">
-    {{.ServerName}}
+  <h1 hx-get="/api/top" class="text-neutral-100/95 retro font-semibold select-none">
+    CPU: 8%
   </h1>
 
-  <hr class="h-[2px] my-4 bg-neutral-200/50 border-0 dark:bg-gray-700">
+  <hr class="h-[2px] my-4 bg-neutral-200/70 dark:bg-neutral-600/70 border-0">
 
   <h3 class="text-xl text-neutral-100/95 my-4">
     Media
