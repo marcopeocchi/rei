@@ -28,7 +28,7 @@ var (
 )
 
 func init() {
-	flag.StringVar(&configPath, "c", "./config.yml", "path of configuration file")
+	flag.StringVar(&configPath, "conf", "./config.yml", "path of configuration file")
 	flag.StringVar(&wallpaperPath, "bg", "./static/wallpaper.avif", "path of background image")
 	flag.Parse()
 }
