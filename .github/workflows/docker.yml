@@ -49,7 +49,6 @@ jobs:
         with:
           images: |
            ghcr.io/${{ github.repository }}
-           docker.io/${{ secrets.DOCKER_HUB_USERNAME }}/rei
           tags: |
             type=raw,value=latest
 
