@@ -23,12 +23,13 @@ var (
 	//go:embed static
 	static embed.FS
 
-	configPath string
+	configPath    string
+	wallpaperPath string
 )
 
 func init() {
 	flag.StringVar(&configPath, "c", "./config.yml", "path of configuration file")
-	flag.StringVar(&configPath, "bg", "./static/wallpaper.avif", "path of background image")
+	flag.StringVar(&wallpaperPath, "bg", "./static/wallpaper.avif", "path of background image")
 	flag.Parse()
 }
 

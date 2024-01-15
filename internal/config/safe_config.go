@@ -52,7 +52,7 @@ func (c *SafeConfig) Save(value Config) {
 func (c *SafeConfig) Load(configPath string) {
 	dat, err := os.ReadFile(configPath)
 	if err != nil {
-		dat, err = os.ReadFile("/etc/valeera/Valeerafile")
+		dat, err = os.ReadFile("/etc/rei/config.yml")
 		if err != nil {
 			log.Fatalln(err)
 		}
