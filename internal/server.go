@@ -11,7 +11,6 @@ import (
 	"github.com/marcopeocchi/valeera/internal/rest"
 
 	"github.com/go-chi/chi/v5"
-	"github.com/go-chi/chi/v5/middleware"
 	"github.com/redis/go-redis/v9"
 )
 
@@ -35,7 +34,8 @@ func RunBlocking(sc ServerConfig) {
 	r := chi.NewRouter()
 
 	r.Use(cors)
-	r.Use(middleware.Logger)
+	// maybe useful in dev
+	// r.Use(middleware.Logger)
 
 	r.Mount("/static", http.FileServer(http.FS(sc.StaticFS)))
 
