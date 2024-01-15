@@ -23,7 +23,7 @@ func index(tmpls *map[string]*template.Template, sc *config.SafeConfig) http.Han
 		data["System"] = sc.Cfg.System
 
 		if err := tmpl.Execute(w, data); err != nil {
-			http.Error(w, "cannot execute template", http.StatusInternalServerError)
+			http.Error(w, err.Error(), http.StatusInternalServerError)
 			return
 		}
 	}

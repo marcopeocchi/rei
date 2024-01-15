@@ -46,10 +46,17 @@ func parseTemplates() error {
 			continue
 		}
 
-		parsed, err := template.ParseFS(files, "tmpl/"+tmpl.Name(), "tmpl/layouts/*.html")
+		parsed, err := template.ParseFS(
+			files,
+			"tmpl/"+tmpl.Name(),
+			"tmpl/layouts/*.html",
+			"tmpl/fragments/*.html",
+		)
 		if err != nil {
 			return fmt.Errorf("cannot parse template %s, err: %w", tmpl.Name(), err)
 		}
+
+		log.Println("parsed", tmpl.Name())
 
 		tmpls[tmpl.Name()] = parsed
 	}

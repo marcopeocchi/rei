@@ -12,16 +12,7 @@
   </h3>
   <div class="grid grid-cols-4 gap-4 mb-4">
     {{range $_, $element := .Media}}
-    <a href="{{$element.Url}}"
-      class="backdrop-blur-md bg-neutral-300/40 hover:bg-neutral-200/40 duration-100 p-3 rounded shadow-md">
-      <div class="flex flex-row items-center gap-4">
-        <img src="https://cdn.jsdelivr.net/gh/walkxcode/dashboard-icons/svg/{{.Icon}}" class="h-8 w-8">
-        <div class="flex flex-col gap-1 text-neutral-50">
-          <h2 class="text-md">{{$element.Name}}</h2>
-          <h3 class="text-xs">{{$element.Description}}</h3>
-        </div>
-      </div>
-    </a>
+    {{template "service" $element}}
     {{end}}
   </div>
 
@@ -30,16 +21,7 @@
   </h3>
   <div class="grid grid-cols-4 gap-4 mb-4">
     {{range $_, $element := .Arr}}
-    <a href="{{$element.Url}}"
-      class="backdrop-blur-md bg-neutral-300/40 hover:bg-neutral-200/40 duration-100 p-3 rounded shadow-md">
-      <div class="flex flex-row items-center gap-4">
-        <img src="https://cdn.jsdelivr.net/gh/walkxcode/dashboard-icons/svg/{{.Icon}}" class="h-8 w-8">
-        <div class="flex flex-col gap-1 text-neutral-50">
-          <h2 class="text-md">{{$element.Name}}</h2>
-          <h3 class="text-xs">{{$element.Description}}</h3>
-        </div>
-      </div>
-    </a>
+    {{template "service" $element}}
     {{end}}
   </div>
 
@@ -48,16 +30,7 @@
   </h3>
   <div class="grid grid-cols-4 gap-4 mb-4">
     {{range $_, $element := .Downloaders}}
-    <a href="{{$element.Url}}"
-      class="backdrop-blur-md bg-neutral-300/40 hover:bg-neutral-200/40 duration-100 p-3 rounded shadow-md">
-      <div class="flex flex-row items-center gap-4">
-        <img src="https://cdn.jsdelivr.net/gh/walkxcode/dashboard-icons/svg/{{.Icon}}" class="h-8 w-8">
-        <div class="flex flex-col gap-1 text-neutral-50">
-          <h2 class="text-md">{{$element.Name}}</h2>
-          <h3 class="text-xs">{{$element.Description}}</h3>
-        </div>
-      </div>
-    </a>
+    {{template "service" $element}}
     {{end}}
   </div>
 
@@ -66,16 +39,7 @@
   </h3>
   <div class="grid grid-cols-4 gap-4 mb-4">
     {{range $_, $element := .System}}
-    <a href="{{$element.Url}}"
-      class="backdrop-blur-md bg-neutral-300/40 hover:bg-neutral-200/40 duration-100 p-3 rounded shadow-md">
-      <div class="flex flex-row items-center gap-4">
-        <img src="https://cdn.jsdelivr.net/gh/walkxcode/dashboard-icons/svg/{{.Icon}}" class="h-8 w-8">
-        <div class="flex flex-col gap-1 text-neutral-50">
-          <h2 class="text-md">{{$element.Name}}</h2>
-          <h3 class="text-xs">{{$element.Description}}</h3>
-        </div>
-      </div>
-    </a>
+    {{template "service" $element}}
     {{end}}
   </div>
 
