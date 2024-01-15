@@ -3,7 +3,7 @@ package internal
 import (
 	"net/http"
 
-	"github.com/marcopeocchi/valeera/internal/models"
+	"github.com/marcopeocchi/rei/internal/models"
 )
 
 func cors(next http.Handler) http.Handler {

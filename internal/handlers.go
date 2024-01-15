@@ -4,7 +4,7 @@ import (
 	"html/template"
 	"net/http"
 
-	"github.com/marcopeocchi/valeera/internal/config"
+	"github.com/marcopeocchi/rei/internal/config"
 )
 
 func index(tmpls *map[string]*template.Template, sc *config.SafeConfig) http.HandlerFunc {
