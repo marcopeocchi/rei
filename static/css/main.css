@@ -1,0 +1,9 @@
+@font-face {
+  font-family: "ShureTech";
+  src:
+    url("/static/fonts/shure.woff2") format("woff");
+}
+
+.retro {
+  font-family: "ShureTech";
+}

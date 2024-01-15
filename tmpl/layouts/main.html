@@ -1,0 +1,26 @@
+{{define "main"}}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/static/css/main.css">
+  <link rel="stylesheet" href="/static/css/tailwind.css">
+  <link rel="shortcut icon" href="/static/favicon.svg" type="image/svg+xml">
+  <title>{{.ServerName}}</title>
+</head>
+
+<body>
+  <main class="px-20 py-8 bg-fixed bg-cover bg-no-repeat w-full h-screen"
+    style="background-image:linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url(/static/wallpaper.avif)">
+    {{template "content" .}}
+  </main>
+
+  <footer class="absolute right-4 bottom-4 text-neutral-100/80 text-xs">
+    <a href="https://github.com/marcopeocchi">GitHub</a>
+  </footer>
+</body>
+
+</html>
+{{end}}

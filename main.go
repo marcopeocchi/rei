@@ -2,7 +2,10 @@ package main
 
 import (
 	"embed"
+	"errors"
 	"flag"
+	"fmt"
+	"html/template"
 	"io/fs"
 	"log"
 
@@ -10,27 +13,60 @@ import (
 	"github.com/marcopeocchi/valeera/internal/config"
 )
 
+//go:generate npm run build
+
 var (
-	//go:embed app/dist
-	app        embed.FS
+	//go:embed tmpl/* tmpl/layouts/*
+	files embed.FS
+	tmpls map[string]*template.Template
+
+	//go:embed static
+	static embed.FS
+
 	configPath string
 )
 
 func init() {
-	flag.StringVar(&configPath, "c", "./Valeerafile", "Path of Valeerafile")
+	flag.StringVar(&configPath, "c", "./config.yml", "path of configuration file")
+	flag.StringVar(&configPath, "bg", "./static/wallpaper.avif", "path of background image")
 	flag.Parse()
 }
 
-func main() {
-	c := config.New(configPath)
+func parseTemplates() error {
+	tmpls = make(map[string]*template.Template)
 
-	app, err := fs.Sub(app, "app/dist")
+	tmplFiles, err := fs.ReadDir(files, "tmpl")
 	if err != nil {
+		return errors.New("cannot open templates directory")
+	}
+
+	for _, tmpl := range tmplFiles {
+		if tmpl.IsDir() {
+			continue
+		}
+
+		parsed, err := template.ParseFS(files, "tmpl/"+tmpl.Name(), "tmpl/layouts/*.html")
+		if err != nil {
+			return fmt.Errorf("cannot parse template %s, err: %w", tmpl.Name(), err)
+		}
+
+		tmpls[tmpl.Name()] = parsed
+	}
+
+	return nil
+}
+
+func main() {
+	cfg := config.New(configPath)
+
+	if err := parseTemplates(); err != nil {
 		log.Fatalln(err)
 	}
 
 	internal.RunBlocking(internal.ServerConfig{
-		Frontend: app,
-		Config:   c,
+		TmplFS:    files,
+		Templates: &tmpls,
+		StaticFS:  static,
+		Config:    cfg,
 	})
 }

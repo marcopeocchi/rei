@@ -11,8 +11,10 @@ import (
 )
 
 type Service struct {
-	Name string `json:"name" yaml:"name"`
-	Url  string `json:"url" yaml:"url"`
+	Url         string `json:"url" yaml:"url"`
+	Name        string `json:"name" yaml:"name"`
+	Icon        string `json:"icon" yaml:"icon"`
+	Description string `json:"description" yaml:"description"`
 }
 
 type Config struct {
@@ -22,6 +24,11 @@ type Config struct {
 	Username       string    `json:"username" yaml:"username"`
 	Password       string    `json:"password" yaml:"password"`
 	Services       []Service `json:"services" yaml:"services"`
+	Arr            []Service `json:"arr" yaml:"arr"`
+	Media          []Service `json:"media" yaml:"media"`
+	Downloaders    []Service `json:"downloaders" yaml:"downloaders"`
+	System         []Service `json:"system" yaml:"system"`
+	Devices        []Service `json:"devices" yaml:"devices"`
 }
 
 type SafeConfig struct {

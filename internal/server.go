@@ -2,6 +2,7 @@ package internal
 
 import (
 	"fmt"
+	"html/template"
 	"io/fs"
 	"net/http"
 	"os"
@@ -22,18 +23,21 @@ var rdb = redis.NewClient(&redis.Options{
 })
 
 type ServerConfig struct {
-	Frontend fs.FS
-	Config   *config.SafeConfig
+	TmplFS   fs.FS
+	StaticFS fs.FS
+
+	Templates *map[string]*template.Template
+
+	Config *config.SafeConfig
 }
 
 func RunBlocking(sc ServerConfig) {
-	fe := http.FileServer(http.FS(sc.Frontend))
-
 	r := chi.NewRouter()
 
 	r.Use(cors)
 	r.Use(middleware.Logger)
-	r.Mount("/", fe)
+
+	r.Mount("/static", http.FileServer(http.FS(sc.StaticFS)))
 
 	r.Route("/api", func(r chi.Router) {
 		if sc.Config.Cfg.Authentication {
@@ -43,6 +47,8 @@ func RunBlocking(sc ServerConfig) {
 		r.Get("/top", rest.Top)
 		r.Get("/config", rest.Config(sc.Config))
 	})
+
+	r.Get("/", index(sc.Templates, sc.Config))
 
 	r.Post("/login", rest.Login(sc.Config, rdb))
 
