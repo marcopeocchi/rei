@@ -8,7 +8,8 @@ type SystemTop struct {
 	Platform  string `json:"platform"`
 	Uptime    uint64 `json:"uptime"`
 	CPUTemp   string `json:"cpuTemp"`
-	RAMFree   uint64 `json:"ramFree"`
+	MemFree   uint64 `json:"memFree"`
+	MemTotal  uint64 `json:"memTotal"`
 }
 
 type SystemTemp struct {

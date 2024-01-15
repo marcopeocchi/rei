@@ -1,7 +1,7 @@
 {{template "main" .}}
 {{define "content"}}
 <section class="select-none">
-  <h1 hx-get="/api/top" class="text-neutral-100/95 retro font-semibold select-none">
+  <h1 hx-trigger="load, every 5s" hx-get="/api/topFmt" class="text-neutral-100/95 retro font-semibold select-none">
     CPU: 8%
   </h1>
 

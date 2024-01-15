@@ -45,6 +45,7 @@ func RunBlocking(sc ServerConfig) {
 		}
 		r.Get("/temp", rest.Temp)
 		r.Get("/top", rest.Top)
+		r.Get("/topFmt", rest.TopFmt)
 		r.Get("/config", rest.Config(sc.Config))
 	})
 
