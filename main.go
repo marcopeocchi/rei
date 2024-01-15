@@ -9,8 +9,8 @@ import (
 	"io/fs"
 	"log"
 
-	"github.com/marcopeocchi/valeera/internal"
-	"github.com/marcopeocchi/valeera/internal/config"
+	"github.com/marcopeocchi/rei/internal"
+	"github.com/marcopeocchi/rei/internal/config"
 )
 
 //go:generate npm run build

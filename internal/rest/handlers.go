@@ -7,9 +7,9 @@ import (
 	"runtime"
 	"time"
 
-	"github.com/marcopeocchi/valeera/internal/config"
-	"github.com/marcopeocchi/valeera/internal/models"
-	"github.com/marcopeocchi/valeera/internal/utils"
+	"github.com/marcopeocchi/rei/internal/config"
+	"github.com/marcopeocchi/rei/internal/models"
+	"github.com/marcopeocchi/rei/internal/utils"
 
 	"github.com/google/uuid"
 	"github.com/redis/go-redis/v9"

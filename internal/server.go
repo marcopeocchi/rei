@@ -7,8 +7,8 @@ import (
 	"net/http"
 	"os"
 
-	"github.com/marcopeocchi/valeera/internal/config"
-	"github.com/marcopeocchi/valeera/internal/rest"
+	"github.com/marcopeocchi/rei/internal/config"
+	"github.com/marcopeocchi/rei/internal/rest"
 
 	"github.com/go-chi/chi/v5"
 	"github.com/redis/go-redis/v9"
