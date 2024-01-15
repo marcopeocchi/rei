@@ -1,11 +1,11 @@
-# Valeera
+# Rei
 
-A simple configurable... Dashboard?
+A work-in-progress alternative to [homepage](https://github.com/gethomepage/homepage).
 
-Written in Go, extra-light on system-resources.
+Written in Go instead of extrabloated Next.js, extra-light on system-resources. Truly static.
 
-![home](https://i.ibb.co/Vxmc4L5/image.png)
-![home](https://i.ibb.co/3SftxQz/image.png)
+![image](https://github.com/marcopeocchi/rei/assets/35533749/44063e0a-86df-464d-934f-aa87df794e52)
+
 
 ## Configurable
 
