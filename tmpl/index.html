@@ -1,47 +1,22 @@
 {{template "main" .}}
 {{define "content"}}
 <section class="select-none">
-  <h1 hx-trigger="load, every 5s" hx-get="/api/topFmt" class="text-neutral-100/95 retro font-semibold select-none">
+  <h1 hx-trigger="load, every 3.5s" hx-get="/api/topFmt" class="text-neutral-100/95 retro font-semibold select-none">
     CPU: 8%
   </h1>
 
   <hr class="h-[2px] my-4 bg-neutral-200/70 dark:bg-neutral-600/70 border-0">
 
+  {{range $title, $services := .Services}}
   <h3 class="text-xl text-neutral-100/95 my-4">
-    Media
+    {{$title}}
   </h3>
   <div class="grid grid-cols-4 gap-4 mb-4">
-    {{range $_, $element := .Media}}
+    {{range $_, $element := $services}}
     {{template "service" $element}}
     {{end}}
   </div>
-
-  <h3 class="text-xl text-neutral-100/95 my-4">
-    *Arr
-  </h3>
-  <div class="grid grid-cols-4 gap-4 mb-4">
-    {{range $_, $element := .Arr}}
-    {{template "service" $element}}
-    {{end}}
-  </div>
-
-  <h3 class="text-xl text-neutral-100/95 my-4">
-    Downloaders
-  </h3>
-  <div class="grid grid-cols-4 gap-4 mb-4">
-    {{range $_, $element := .Downloaders}}
-    {{template "service" $element}}
-    {{end}}
-  </div>
-
-  <h3 class="text-xl text-neutral-100/95 my-4">
-    System
-  </h3>
-  <div class="grid grid-cols-4 gap-4 mb-4">
-    {{range $_, $element := .System}}
-    {{template "service" $element}}
-    {{end}}
-  </div>
+  {{end}}
 
 </section>
 {{end}}

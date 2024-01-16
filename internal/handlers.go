@@ -17,10 +17,9 @@ func index(tmpls *map[string]*template.Template, sc *config.SafeConfig) http.Han
 
 		data := make(map[string]any)
 		data["ServerName"] = sc.Cfg.ServerName
-		data["Arr"] = sc.Cfg.Arr
-		data["Downloaders"] = sc.Cfg.Downloaders
-		data["Media"] = sc.Cfg.Media
-		data["System"] = sc.Cfg.System
+		data["Services"] = sc.Cfg.Services
+		data["Wallpaper"] = sc.Cfg.Wallpaper
+		data["Opacity"] = sc.Cfg.Opacity
 
 		if err := tmpl.Execute(w, data); err != nil {
 			http.Error(w, err.Error(), http.StatusInternalServerError)

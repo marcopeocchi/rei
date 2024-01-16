@@ -10,4 +10,4 @@ VOLUME /images /config
 WORKDIR /app
 COPY --from=build /usr/src/rei/rei /app
 EXPOSE 8686
-ENTRYPOINT [ "./rei" , "--bg", "/images/wallpaper.avif", "--conf", "/config/config.yml" ]
+ENTRYPOINT [ "./rei", "--conf", "/config/config.yml" ]

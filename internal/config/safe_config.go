@@ -18,21 +18,18 @@ type Service struct {
 }
 
 type Config struct {
-	Port           int       `json:"port" yaml:"port"`
-	ServerName     string    `json:"servername" yaml:"servername"`
-	Authentication bool      `json:"authentication" yaml:"authentication"`
-	Username       string    `json:"username" yaml:"username"`
-	Password       string    `json:"password" yaml:"password"`
-	Services       []Service `json:"services" yaml:"services"`
-	Arr            []Service `json:"arr" yaml:"arr"`
-	Media          []Service `json:"media" yaml:"media"`
-	Downloaders    []Service `json:"downloaders" yaml:"downloaders"`
-	System         []Service `json:"system" yaml:"system"`
-	Devices        []Service `json:"devices" yaml:"devices"`
+	Port           int                  `json:"port" yaml:"port"`
+	ServerName     string               `json:"servername" yaml:"servername"`
+	Authentication bool                 `json:"authentication" yaml:"authentication"`
+	Username       string               `json:"username" yaml:"username"`
+	Password       string               `json:"password" yaml:"password"`
+	Services       map[string][]Service `json:"services" yaml:"services"`
+	Wallpaper      string               `json:"wallpaper" yaml:"wallpaper"`
+	Opacity        float64              `json:"opacity" yaml:"opacity"`
 }
 
 type SafeConfig struct {
-	mu  sync.Mutex
+	sync.Mutex
 	Cfg Config
 }
 
@@ -44,9 +41,9 @@ func New(path string) *SafeConfig {
 
 // TODO
 func (c *SafeConfig) Save(value Config) {
-	c.mu.Lock()
+	c.Lock()
 	c.Cfg = value
-	c.mu.Unlock()
+	c.Unlock()
 }
 
 func (c *SafeConfig) Load(configPath string) {

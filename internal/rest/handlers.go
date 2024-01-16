@@ -14,6 +14,7 @@ import (
 	"github.com/google/uuid"
 	"github.com/redis/go-redis/v9"
 	"github.com/shirou/gopsutil/cpu"
+	"github.com/shirou/gopsutil/disk"
 	"github.com/shirou/gopsutil/host"
 	"github.com/shirou/gopsutil/mem"
 )
@@ -57,11 +58,18 @@ func TopFmt(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 
 	var (
-		vmstat, _ = mem.VirtualMemory()
-		usage, _  = cpu.Percent(time.Millisecond*500, false)
+		vmstat, _    = mem.VirtualMemory()
+		cpuUsage, _  = cpu.Percent(time.Millisecond*500, false)
+		diskUsage, _ = disk.Usage("/")
 	)
 
-	fmt.Fprintf(w, "CPU: %0.f%%\tMEM: %.0f%%", usage[0], vmstat.UsedPercent)
+	fmt.Fprintf(
+		w,
+		"CPU: %0.f%% MEM: %.0f%% HDD: %.0f%%",
+		cpuUsage[0],
+		vmstat.UsedPercent,
+		diskUsage.UsedPercent,
+	)
 }
 
 func Temp(w http.ResponseWriter, r *http.Request) {
