@@ -9,6 +9,7 @@ import (
 	"io/fs"
 	"log"
 
+	"github.com/fsnotify/fsnotify"
 	"github.com/marcopeocchi/rei/internal"
 	"github.com/marcopeocchi/rei/internal/config"
 )
@@ -68,6 +69,36 @@ func main() {
 	cfg := config.New(configPath)
 
 	if err := parseTemplates(); err != nil {
+		log.Fatalln(err)
+	}
+
+	watcher, err := fsnotify.NewWatcher()
+	if err != nil {
+		log.Fatal(err)
+	}
+	defer watcher.Close()
+
+	go func() {
+		for {
+			select {
+			case event, ok := <-watcher.Events:
+				if !ok {
+					return
+				}
+				if event.Has(fsnotify.Write) {
+					log.Println("modified cofig file")
+					cfg.Load(configPath)
+				}
+			case err, ok := <-watcher.Errors:
+				if !ok {
+					return
+				}
+				log.Println("error:", err)
+			}
+		}
+	}()
+
+	if err := watcher.Add(configPath); err != nil {
 		log.Fatalln(err)
 	}
 

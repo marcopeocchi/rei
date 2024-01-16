@@ -11,7 +11,7 @@
   <h3 class="text-xl text-neutral-100/95 my-4">
     {{$title}}
   </h3>
-  <div class="grid grid-cols-4 gap-4 mb-4">
+  <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-4 mb-4">
     {{range $_, $element := $services}}
     {{template "service" $element}}
     {{end}}

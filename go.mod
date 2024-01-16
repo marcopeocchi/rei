@@ -3,6 +3,7 @@ module github.com/marcopeocchi/rei
 go 1.21
 
 require (
+	github.com/fsnotify/fsnotify v1.7.0
 	github.com/go-chi/chi/v5 v5.0.11
 	github.com/google/uuid v1.5.0
 	github.com/redis/go-redis/v9 v9.4.0
