@@ -26,6 +26,7 @@ type Config struct {
 	Services       map[string][]Service `json:"services" yaml:"services"`
 	Wallpaper      string               `json:"wallpaper" yaml:"wallpaper"`
 	Opacity        float64              `json:"opacity" yaml:"opacity"`
+	Scheme         string               `json:"scheme" yaml:"scheme"`
 }
 
 type SafeConfig struct {

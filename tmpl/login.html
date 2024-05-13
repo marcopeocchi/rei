@@ -1,0 +1,21 @@
+{{template "main" .}}
+{{define "content"}}
+<form action="/web/login" method="post">
+  <div class="flex flex-col gap-2 items-center justify-center p-8 max-w-md backdrop-blur-md bg-neutral-300/40 duration-100
+  dark:bg-neutral-600/40 rounded shadow-lg">
+    <h1 class="font-bold text-2xl">
+      Login
+    </h1>
+
+    <input type="text" name="username" placeholder="Username" class="w-full">
+    <input type="password" name="password" placeholder="Password" class="w-full">
+    <input type="submit" class="p-1 bg-emerald-400" class="w-full">
+
+    {{if .Error}}
+    <div class="bg-red-400 p-1">
+      {{.Error}}
+    </div>
+    {{end}}
+  </div>
+</form>
+{{end}}

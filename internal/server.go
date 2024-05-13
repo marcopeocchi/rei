@@ -34,8 +34,6 @@ func RunBlocking(sc ServerConfig) {
 	r := chi.NewRouter()
 
 	r.Use(cors)
-	// maybe useful in dev
-	// r.Use(middleware.Logger)
 
 	r.Mount("/static", http.FileServer(http.FS(sc.StaticFS)))
 
@@ -49,9 +47,18 @@ func RunBlocking(sc ServerConfig) {
 		r.Get("/config", rest.Config(sc.Config))
 	})
 
-	r.Get("/", index(sc.Templates, sc.Config))
+	r.Route("/web", func(r chi.Router) {
+		if sc.Config.Cfg.Authentication {
+			r.Use(authenticated)
+		}
+		r.Handle("/", index(sc.Templates, sc.Config))
+		r.Get("/login", getLogin(sc.Templates, sc.Config))
+		r.Post("/login", postLogin(sc.Templates, sc.Config, rdb))
+	})
 
-	r.Post("/login", rest.Login(sc.Config, rdb))
+	r.Get("/", func(w http.ResponseWriter, r *http.Request) {
+		http.Redirect(w, r, "/web", http.StatusTemporaryRedirect)
+	})
 
 	http.ListenAndServe(fmt.Sprintf(":%d", sc.Config.Cfg.Port), r)
 }

@@ -12,6 +12,12 @@
     integrity="sha384-D1Kt99CQMDuVetoL1lrYwg5t+9QdHe7NLX/SoJYkXDFfX37iInKRy5xLSi8nO7UC" crossorigin="anonymous">
     </script>
   <title>{{.ServerName}}</title>
+  <script type="module">
+    if ('{{.Scheme}}' === 'dark') {
+      document.documentElement.classList.add('dark')
+      console.log('{{.Scheme}}' === 'dark')
+    }
+  </script>
 </head>
 
 <body>
